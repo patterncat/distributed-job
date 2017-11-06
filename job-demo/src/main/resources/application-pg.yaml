@@ -1,0 +1,33 @@
+dxjob:
+  enabled: true
+  dataSourceName: pgDataSource
+spring:
+  datasource.pg:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://192.168.99.100:5432/postgres
+    username: postgres
+    password: 1q2w3e
+    jmx-enabled: true
+    tomcat:
+      initial-size: 1
+      max-active: 5
+      ## when pool sweeper is enabled, extra idle connection will be closed
+      max-idle: 5
+      ## when idle connection > min-idle, poolSweeper will start to close
+      min-idle: 1
+      # PoolSweeper run interval
+      time-between-eviction-runs-millis: 30000
+      remove-abandoned: true
+      # how long a connection should return,if not return regard as leak connection
+      remove-abandoned-timeout: 10
+      # how long a connection should return, or regard as probably leak connection
+      suspect-timeout: 10
+      log-abandoned: true
+      abandon-when-percentage-full: 0 ## (used/max-active*100f)>=perc -->shouldAbandon, if set 0 always abandon
+      # idle connection idle time before close
+      min-evictable-idle-time-millis: 60000
+      validation-query: select 1
+      validation-interval: 30000
+  jpa:
+    hibernate.ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect

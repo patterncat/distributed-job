@@ -1,8 +1,8 @@
-package cn.patterncat.job.common;
+package cn.patterncat.job.common.model;
 
 /**
  * Created by patterncat on 2017-11-03.
  */
 public enum JobStatus {
-    EXECUTING,SUCCESS,FAILED;
+    INIT,EXECUTING,SUCCESS,FAILED;
 }

@@ -1,4 +1,4 @@
-package cn.patterncat.job.common;
+package cn.patterncat.job.common.model;
 
 import lombok.Builder;
 import lombok.Data;
@@ -40,6 +40,6 @@ public class JobInfo {
 
     private String error;
 
-    private Object result;
+    private String result;
 
 }
