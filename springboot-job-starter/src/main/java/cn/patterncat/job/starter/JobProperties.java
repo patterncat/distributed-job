@@ -14,6 +14,8 @@ public class JobProperties {
 
     private String dataSourceName = "dataSource";
 
+    private boolean asyncEvent = true;
+
     public String getTablePrefix() {
         return tablePrefix;
     }
@@ -36,5 +38,13 @@ public class JobProperties {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public boolean isAsyncEvent() {
+        return asyncEvent;
+    }
+
+    public void setAsyncEvent(boolean asyncEvent) {
+        this.asyncEvent = asyncEvent;
     }
 }
