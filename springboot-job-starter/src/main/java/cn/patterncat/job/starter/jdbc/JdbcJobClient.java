@@ -5,6 +5,8 @@ import cn.patterncat.job.common.model.JobInfo;
 import cn.patterncat.job.common.model.JobResp;
 import cn.patterncat.job.starter.jdbc.dao.PendingJobDao;
 import cn.patterncat.job.starter.jdbc.domain.PendingJob;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Example;
@@ -18,6 +20,8 @@ import java.util.List;
  */
 public class JdbcJobClient implements JobClient<Long,PendingJob>{
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcJobClient.class);
+
     @Autowired
     ApplicationEventPublisher applicationEventPublisher;
 
@@ -27,12 +31,30 @@ public class JdbcJobClient implements JobClient<Long,PendingJob>{
 
     @Override
     public JobResp<Page<PendingJob>> fetchJobByGroup(String group, Pageable pageable) {
-        return null;
+        try{
+            Page<PendingJob> data = pendingJobDao.findByJobGroup(group, pageable);
+            return JobResp.<Page<PendingJob>>builder()
+                    .success(true)
+                    .data(data)
+                    .build();
+        }catch (Exception e){
+            LOGGER.error(e.getMessage(),e);
+            return JobResp.<Page<PendingJob>>builder().throwable(e).success(false).build();
+        }
     }
 
     @Override
     public JobResp<Page<PendingJob>> fetchJobByHandlerClz(String handlerClz, Pageable pageable) {
-        return null;
+        try{
+            Page<PendingJob> data = pendingJobDao.findByHandlerClz(handlerClz, pageable);
+            return JobResp.<Page<PendingJob>>builder()
+                    .data(data)
+                    .success(true)
+                    .build();
+        }catch (Exception e){
+            LOGGER.error(e.getMessage(),e);
+            return JobResp.<Page<PendingJob>>builder().throwable(e).success(false).build();
+        }
     }
 
     @Override
