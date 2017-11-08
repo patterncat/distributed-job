@@ -1,22 +1,21 @@
 package cn.patterncat.job.common.api;
 
-import cn.patterncat.job.common.model.JobInfo;
 import cn.patterncat.job.common.model.JobResp;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Created by patterncat on 2017-11-06.
  */
-public interface JobClient {
+public interface JobClient<K,T> {
 
-    public JobResp<List<JobInfo>> fetchJobByGroup(String group);
+    public JobResp<Page<T>> fetchJobByGroup(String group, Pageable pageable);
 
-    public JobResp<List<JobInfo>> fetchJobByHandlerClz(String handlerClz);
+    public JobResp<Page<T>> fetchJobByHandlerClz(String handlerClz,Pageable pageable);
 
-    public JobResp newJob(JobInfo jobInfo);
+    public JobResp newJob(T jobInfo);
 
-    public JobResp claimJob(String jobId);
+    public JobResp claimJob(K jobId);
 
-    public JobResp updateJob(JobInfo jobInfo);
+    public JobResp updateJob(T jobInfo);
 }

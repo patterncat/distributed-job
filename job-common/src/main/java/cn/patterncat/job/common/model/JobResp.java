@@ -7,7 +7,6 @@ import lombok.Data;
  * Created by patterncat on 2017-11-06.
  */
 @Data
-@Builder
 public class JobResp<T> {
 
     private boolean success;
